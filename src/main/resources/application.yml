@@ -1,0 +1,61 @@
+server:
+    port: ${server-port:9090}
+spring:
+  redis:
+    database: ${spring-redis-db:1}
+    host: ${spring-redis-host:localhost}
+    port: ${spring-redis-port:6379}
+    password: ${spring-redis-password:}
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+      shutdown-timeout: 100ms
+  kafka:
+    bootstrap-servers: ${spring-kafka-servers:192.168.11.212:6667}
+    producer:
+      acks: all
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 0
+      batch-size: 10000
+    template:
+      default-topic: ${spring-kafka-topic:poc}
+#txt文件解析分隔符
+separate:
+  char: ${separate-char:}
+#是否存在头行
+exist:
+  header: ${exist-header:true}
+#头行从哪一行开始 从0开始
+header:
+  line-num: ${header-line-num:0}
+#读取的sheet页
+sheet:
+  num: ${sheet-num:1}
+#主键列组合 从0开始
+primary:
+  keys: ${primary-keys:0,1}
+#扫描的目录
+dirctory:
+  path: ${dirctory-path:C:\Users\dengzhilong\Desktop\data}
+
+# 异步线程配置
+async:
+  executor:
+    thread:
+      # 配置核心线程数
+      core_pool_size: 5
+      # 配置最大线程数
+      max_pool_size: 5
+      # 配置队列大小
+      queue_capacity: 100
+      name:
+      # 配置线程池中的线程的名称前缀
+        prefix: async-service-
+logging:
+  level:
+    root: ${logging-level:info}
+  file: ${logging-file:file.log}
